@@ -1,7 +1,3 @@
-<html>
-<head>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript">
 function fetchPage(url) {
 
         $.ajax({
@@ -12,7 +8,7 @@ function fetchPage(url) {
         },
         success: function(data) {
 
-            var textstring = "";
+            var textstring = "<table>";
             //document.write(data);
             var $divelem = $("div.table-questions",$(data));
             var $headers = $("h3",$(data));
@@ -24,7 +20,7 @@ function fetchPage(url) {
                 var tr = $('tr',ob);
                 var trsize = tr.size();
                 //alert(trsize);
-                textstring += "<b>"+$headers.eq(i).html()+"</b><br>";
+                textstring += "<tr><td><b>"+$headers.eq(i).html()+"</b></td></tr><tr>";
                 for(j = 1;j < Math.min(10,trsize);j++)
                 {
                     var td = $('td',tr[j]);
@@ -32,16 +28,20 @@ function fetchPage(url) {
                     //alert(tdsize);
                     for(k = 0;k < tdsize;k++)
                     {
-                        textstring += "\t"+td.eq(k).html()
+                        textstring += "<td>"+td.eq(k).html()+"</td>";
                     }
-                    textstring += "<br>";
+                    textstring += "</tr>";
                 }
 
             }
+            textstring += "</table>";
 
             var element = document.createElement("div");
+            element.setAttribute("id", "mainbox");
+            //var element = document.getElementsByName("mainbox");
             //var newContent = document.createHtmlNode(textstring);
             element.innerHTML = textstring; 
+            $('#mainbox').css('backgroundColor','#EE178C')
             document.body.appendChild(element);
             //document.write(textstring);
         }
@@ -49,15 +49,7 @@ function fetchPage(url) {
     });
 }
 
-    document.addEventListener('DOMContentLoaded', function() 
-    {
-        fetchPage("http://www.codechef.com/contests");
-    });
-
-</script>
-</head>
-
-<body>
-</body>
-
-</html>
+document.addEventListener('DOMContentLoaded', function() 
+{
+    fetchPage("http://www.codechef.com/contests");
+});
