@@ -5,6 +5,7 @@ A chrome extension for easily accessing information on codechef.
 For now it supports the information of past, present and future contests in the extension.
 
 Installation:
+
 	Download all files.
 	Open chrome and go to Settings->Tools->Extensions
 	Check Developer Mode checkbox in top.
