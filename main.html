@@ -1,0 +1,63 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+function fetchPage(url) {
+
+        $.ajax({
+        type: "GET",
+        url: url,
+        error: function(request, status) {
+            alert('Error fetching ' + url);
+        },
+        success: function(data) {
+
+            var textstring = "";
+            //document.write(data);
+            var $divelem = $("div.table-questions",$(data));
+            var $headers = $("h3",$(data));
+
+            var contsite = $divelem.size();
+            for(i = 0;i < contsite;i++)
+            {
+                var ob = $divelem.eq(i);
+                var tr = $('tr',ob);
+                var trsize = tr.size();
+                //alert(trsize);
+                textstring += "<b>"+$headers.eq(i).html()+"</b><br>";
+                for(j = 1;j < Math.min(10,trsize);j++)
+                {
+                    var td = $('td',tr[j]);
+                    var tdsize = td.size();
+                    //alert(tdsize);
+                    for(k = 0;k < tdsize;k++)
+                    {
+                        textstring += "\t"+td.eq(k).html()
+                    }
+                    textstring += "<br>";
+                }
+
+            }
+
+            var element = document.createElement("div");
+            //var newContent = document.createHtmlNode(textstring);
+            element.innerHTML = textstring; 
+            document.body.appendChild(element);
+            //document.write(textstring);
+        }
+
+    });
+}
+
+    document.addEventListener('DOMContentLoaded', function() 
+    {
+        fetchPage("http://www.codechef.com/contests");
+    });
+
+</script>
+</head>
+
+<body>
+</body>
+
+</html>
